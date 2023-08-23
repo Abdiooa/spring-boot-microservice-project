@@ -1,0 +1,58 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/products/**
+            - Method=GET,POST,PUT,DELETE
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: product-service
+                fallbackUri: forward:/fallback/productsServiceFallBack
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**
+            - Method=GET,POST,PUT,DELETE
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: order-service
+                fallbackUri: forward:/fallback/orderServiceFallBack
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      CircuitBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
