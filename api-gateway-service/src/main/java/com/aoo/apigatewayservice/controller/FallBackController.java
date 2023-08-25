@@ -7,16 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/fallback")
+@RequestMapping("")
 public class FallBackController {
-    @GetMapping("/productsServiceFallBack")
+    @GetMapping("/fallback/productsServiceFallBack")
     public ResponseEntity<String> productsServiceFallBackMethod(){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(" product service is not available now please try it later");
     }
-    @GetMapping("/orderServiceFallBack")
+    @GetMapping("/fallback/orderServiceFallBack")
     public ResponseEntity<String> orderServiceFallBackMethod(){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(" order service is not available now please try it later");
+    }
+    @GetMapping("/logedout")
+    public String ssologout(){
+        return "you successfully logout!";
     }
 }

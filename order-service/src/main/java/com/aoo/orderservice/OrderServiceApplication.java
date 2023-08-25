@@ -17,7 +17,6 @@ import java.time.Duration;
 @SpringBootApplication
 @RequiredArgsConstructor
 public class OrderServiceApplication {
-	private final BeanFactory beanFactory;
 	public static void main(String[] args) {
 		SpringApplication.run(OrderServiceApplication.class, args);
 	}

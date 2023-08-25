@@ -1,6 +1,25 @@
 spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8180/realms/micro-realm-by-me
+        registration:
+          spring-gateway-client:
+            client-name: micro-auth-by-me
+            client-id: micro-auth-by-me
+            client-secret: 7NQ1563XINBBoHuDNcg5wgP9XWY9II92
+            authorization-grant-type: authorization_code
+            scope: openid
+            provider: keycloak
+            redirect-uri: http://localhost:9191/login/oauth2/code/spring-gateway-client
   cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
     gateway:
+      default-filters: TokenRelay
       discovery:
         locator:
           enabled: true
@@ -26,10 +45,17 @@ spring:
               args:
                 name: order-service
                 fallbackUri: forward:/fallback/orderServiceFallBack
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#
+#spring:
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
 
 resilience4j:
   circuitbreaker:
