@@ -1,3 +1,3 @@
 # spring-boot-microservice-project
 
-<img alt="Project Architecture" src="/home/aoo/FullStack/projects/realmicrofirstproject/images/architecture.png"/>
+<img alt="Project Architecture" src="images/architecture.png"/>
