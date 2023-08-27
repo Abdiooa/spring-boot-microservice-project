@@ -9,7 +9,7 @@ spring:
           spring-gateway-client:
             client-name: micro-auth-by-me
             client-id: micro-auth-by-me
-            client-secret: 7NQ1563XINBBoHuDNcg5wgP9XWY9II92
+            client-secret: 1pGG6C5GIwujJ8jL8cZ0SRzM89uobpfH
             authorization-grant-type: authorization_code
             scope: openid
             provider: keycloak
@@ -72,6 +72,9 @@ resilience4j:
         slidingWindowType: COUNT_BASED
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
   health:
     circuitbreakers:
       enabled: true
