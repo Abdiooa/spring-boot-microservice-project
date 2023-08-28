@@ -19,7 +19,7 @@ spring:
       ribbon:
         enabled: false
     gateway:
-      default-filters: TokenRelay
+#      default-filters: TokenRelay
       discovery:
         locator:
           enabled: true
@@ -35,6 +35,11 @@ spring:
               args:
                 name: product-service
                 fallbackUri: forward:/fallback/productsServiceFallBack
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
         - id: order-service
           uri: lb://order-service
           predicates:
