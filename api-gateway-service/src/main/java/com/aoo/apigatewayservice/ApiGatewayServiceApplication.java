@@ -23,14 +23,14 @@ public class ApiGatewayServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiGatewayServiceApplication.class, args);
 	}
-//	@Bean
-//	KeyResolver authUserKeyResolver() {
-//		return exchange -> ReactiveSecurityContextHolder.getContext()
-//				.map(ctx -> ctx.getAuthentication()
-//						.getPrincipal().toString());
-//	}
 	@Bean
-	KeyResolver userKeyResolver() {
-		return exchange -> Mono.just("1");
+	KeyResolver authUserKeyResolver() {
+		return exchange -> ReactiveSecurityContextHolder.getContext()
+				.map(ctx -> ctx.getAuthentication()
+						.getPrincipal().toString());
 	}
+//	@Bean
+//	KeyResolver userKeyResolver() {
+//		return exchange -> Mono.just("1");
+//	}
 }

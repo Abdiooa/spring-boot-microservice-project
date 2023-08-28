@@ -27,7 +27,7 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http){
         http.authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/logedout").permitAll()
+//                        .pathMatchers("/logedout").permitAll()
                         .anyExchange().authenticated())
 //                .oauth2Login(withDefaults());
         . oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtDecoder(jwtDecoder())));
